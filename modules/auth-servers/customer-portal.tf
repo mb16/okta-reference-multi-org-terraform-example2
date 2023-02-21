@@ -65,3 +65,10 @@ resource "okta_auth_server_policy_rule" "customer_portal_default_rule" {
   scope_whitelist      = ["openid", "profile", "iat.account.read"]
 }
 
+resource "okta_auth_server" "test_server" {
+  audiences   = ["api://iatcore.com"]
+  description = "Auth Server that handles test apps"
+  name        = "Test ‘Server"
+  issuer_mode = "ORG_URL"
+  status      = "ACTIVE"
+}
