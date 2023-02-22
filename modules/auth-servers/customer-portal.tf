@@ -65,3 +65,24 @@ resource "okta_auth_server_policy_rule" "customer_portal_default_rule" {
   scope_whitelist      = ["openid", "profile", "iat.account.read"]
 }
 
+resource "okta_auth_server" "test_server" {
+  audiences   = ["api://iatcore.com"]
+  description = "Auth Server that handles test apps"
+  name        = "Test ‘Server"
+  issuer_mode = "ORG_URL"
+  status      = "ACTIVE"
+}
+
+resource "okta_auth_server_scope" "test_scope" {
+  auth_server_id = okta_auth_server.test_server.id
+  description    = "This allows the test server to view your IATCore account information."
+  name           = "iat.account.read"
+}
+
+resource "okta_auth_server_claim" "test_claim" {
+  auth_server_id = okta_auth_server.test_server.id
+  name           = "Type"
+  value          = "user.userType"
+  scopes         = [ okta_auth_server_scope.test_scope.name ]
+  claim_type     = "IDENTITY"
+}
