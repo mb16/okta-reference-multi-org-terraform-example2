@@ -9,6 +9,6 @@ resource "okta_group" "dmzadmin_group" {
 }
 
 resource "okta_group" "test_group" {
-  name        = "Renamed Again Test Group"
+  name        = "Renamed Again 444 Test Group"
   description = "For testing and demonstration"
 }
